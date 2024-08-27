@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:grocery_app/core/Constants/urls.dart';
 import 'package:grocery_app/core/Exception/exception.dart';
 import 'package:grocery_app/features/Grosary/Data/Model/grocery_model.dart';
@@ -31,11 +32,21 @@ class GroceryRemoteDataSourceImpl extends GroceryRemoteDataSource {
         },
       );
       final Map<String, dynamic> jsonResponse = json.decode(response.body);
-
+      
       if (response.statusCode == 200) {
         final List<dynamic> GroceryData = jsonResponse['data'];
-        final List<GroceryModel> Groceries =
-            GroceryData.map((json) => GroceryModel.fromJson(json)).toList();
+        // log('form data source0');
+        final List<GroceryModel> Groceries = [];
+          //  Groceries.addAll(GroceryData.map((json) => GroceryModel.fromJson(json)).toList()) ;
+
+           GroceryData.forEach((grocery) {
+            // print(GroceryModel.fromJson(grocery).toString());
+            Groceries.add(GroceryModel.fromJson(grocery));
+
+           });
+
+
+
 
         return Groceries;
       } else {

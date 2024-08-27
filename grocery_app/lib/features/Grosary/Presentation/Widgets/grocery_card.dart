@@ -7,6 +7,7 @@ class GroceryCard extends StatelessWidget {
   final double rating;
   final double oldPrice;
   final double newPrice;
+  final VoidCallback? onTap;
 
   const GroceryCard({
     Key? key,
@@ -16,122 +17,116 @@ class GroceryCard extends StatelessWidget {
     required this.rating,
     required this.oldPrice,
     required this.newPrice,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 170,
-      margin: const EdgeInsets.all(8.0),
-      // padding: const EdgeInsets.all(1.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child:  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        
-        children: [
-          ClipRRect(
-            borderRadius: const  BorderRadius.all(Radius.circular(10)),
-            
-            child: Image.asset(
-              imageUrl,
-              height: 160,
-              width: double.infinity,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 100, 
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
-          ),
-          const SizedBox(height: 10),
-           Padding(
-          padding:  const EdgeInsets.only(left: 6),
-            
-              child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-
-              children: [
-              Text(
-              title,
-              style: const TextStyle(  
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 34, 34, 34),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              child: Image.network(
+                imageUrl,
+                height: 130, // Reduced image height
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.left,
-                       ),
-                       const SizedBox(height: 5),
-             
-                       // Rating Section
-                       Row(
-              children: [
-               const  Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 18,
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  rating.toStringAsFixed(1),
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
-                       ),
-                       const SizedBox(height: 8),
-             
-                       // Price Section
-                       Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (oldPrice == 0)
-                  // Only display new price if old price is zero
+            ),
+            const SizedBox(height: 8), // Adjusted space
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                     
-                    '£${newPrice.toStringAsFixed(2)}',
+                    title,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 34, 34, 34),
                     ),
-                  )
-                else
-                  // Display both old and new prices
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 5),
+
+                  // Rating Section
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        '£${oldPrice.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 226, 223, 223),
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 18,
                       ),
-                       const SizedBox(width: 45),
-             
+                      const SizedBox(width: 5),
                       Text(
-                        '£${newPrice.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
+                        rating.toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
-              ],
-                       ),
-                       ],),
-           )
-        ],
+                  const SizedBox(height: 6), // Adjusted space
+
+                  // Price Section
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (oldPrice == 0)
+                        Text(
+                          '£${newPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      else
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '£${oldPrice.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 226, 223, 223),
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                              Text(
+                                '£${newPrice.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

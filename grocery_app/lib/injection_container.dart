@@ -1,5 +1,6 @@
 
 import 'package:get_it/get_it.dart';
+import 'package:grocery_app/core/Network_info/Network_info.dart';
 import 'package:grocery_app/features/Grosary/Data/DataSource/remote_data_source.dart';
 import 'package:grocery_app/features/Grosary/Data/Repository/repository_impl.dart';
 import 'package:grocery_app/features/Grosary/Domein/Repository/grocery_repositar.dart';
@@ -27,6 +28,7 @@ Future<void> init() async {
   sl.registerLazySingleton<GroceryRemoteDataSource>(() => GroceryRemoteDataSourceImpl(
       client: sl(),));
 
+  sl.registerLazySingleton<NetworkInfo>(()=>NetworkInfoImpl(connectionChecker: sl()));
 
 
   sl.registerLazySingleton(() => http.Client());

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -21,7 +22,17 @@ class GroceryRepositoryImpl extends GroceryRepository {
   Future<Either<Failure, List<GroceryEntity>>> getAllGroceries() async {
     try {
       final products = await remoteDataSource.getAllGroceries();
-      return Right(products.map((product) => product.toEntity()).toList());
+       final List<GroceryEntity> Groceries = [];
+
+           products.forEach((grocery) {
+            Groceries.add(grocery.toEntity());
+
+           });
+
+
+
+    
+      return Right(Groceries);
     } on ServerException {
       return const  Left(ServerFailure());
     } on SocketException {

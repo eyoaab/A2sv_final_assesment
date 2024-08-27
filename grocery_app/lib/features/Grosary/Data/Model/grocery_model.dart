@@ -22,25 +22,27 @@ class GroceryModel extends GroceryEntity {
           options: options,
         );
 
+
   factory GroceryModel.fromJson(Map<String, dynamic> json) {
     return GroceryModel(
       id: json['id'],
       title: json['title'],
       imageUrl: json['imageUrl'],
-      rating: json['rating'].toDouble(),
-      price: json['price'].toDouble(),
-      discount: json['discount'].toDouble(),
+      rating: (json['rating'] as num).toDouble(),
+      price: (json['price'] as num).toDouble(),
+      discount: (json['discount'] as num).toDouble(),
       description: json['description'],
       options: (json['options'] as List)
           .map((option) => OptionEntity(
                 id: option['id'],
                 name: option['name'],
-                price: option['price'].toDouble(),
+                price: (option['price'] as num).toDouble(),
               ))
           .toList(),
     );
   }
 
+  // Method to convert GroceryModel to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -60,6 +62,7 @@ class GroceryModel extends GroceryEntity {
     };
   }
 
+  // Method to convert GroceryModel to GroceryEntity
   GroceryEntity toEntity() {
     return GroceryEntity(
       id: id,
@@ -71,5 +74,10 @@ class GroceryModel extends GroceryEntity {
       description: description,
       options: options,
     );
+  }
+
+
+  static List<GroceryModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => GroceryModel.fromJson(json)).toList();
   }
 }

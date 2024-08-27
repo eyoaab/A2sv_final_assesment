@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery_app/features/Grosary/Domein/Entity/grocery_entity.dart';
@@ -19,10 +21,15 @@ class _DetailPageState extends State<DetailPage> {
 
   void incrementOrder() {
     setState(() {
-  context.read<GroceryBloc>().add(LoadAllGroceryEvent());
 
       orderCount++;
     });
+  }
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<GroceryBloc>().add(LoadAllGroceryEvent());
   }
 
   void decrementOrder() {
@@ -33,6 +40,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -53,7 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                       ],
                     ),
                     clipBehavior: Clip.hardEdge,
-                    child: Image.asset(
+                    child: Image.network(
                       widget.grocery.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,

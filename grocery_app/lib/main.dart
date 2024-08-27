@@ -32,14 +32,14 @@ class MyApp extends StatelessWidget {
     ],
   );
 
-// Navigate to the DetailPage
 
   @override
   Widget build(BuildContext context) {
      
     return BlocProvider(
       create: (context) => sl<GroceryBloc>(),
-      child: MaterialApp(home: DetailPage(grocery: grocery)),
+       child: MaterialApp(home: SplashScreen()),
+      // child: MaterialApp(home: DetailPage(grocery: grocery)),
     );
   }
 }
