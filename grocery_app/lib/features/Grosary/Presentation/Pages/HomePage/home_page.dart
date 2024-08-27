@@ -32,6 +32,31 @@ class _HomePageState extends State<HomePage> {
         child: SafeArea(
           child: Column(
             children: [
+              // Title with Asset Image
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Replace with your asset image
+                    Image.asset(
+                      'assets/top.png', // Path to your asset image
+                      width: 28,
+                      height: 28,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Burger',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 0, 19, 1),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Search Bar
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
