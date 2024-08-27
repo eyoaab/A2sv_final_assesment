@@ -9,11 +9,11 @@ import 'package:grocery_app/features/Grosary/Domein/Entity/grocery_entity.dart';
 import 'package:grocery_app/features/Grosary/Domein/Repository/grocery_repositar.dart';
 
 
-class ProductRepositoryImpl extends GroceryRepository {
+class GroceryRepositoryImpl extends GroceryRepository {
   final GroceryRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
-  ProductRepositoryImpl(
+  GroceryRepositoryImpl(
       {required this.remoteDataSource,
       required this.networkInfo});
 

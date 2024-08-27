@@ -1,4 +1,4 @@
-import './OptionEntity.dart';
+import 'OptionEntity.dart';
 // Grocery Item Class
 class GroceryEntity {
   final String id;
