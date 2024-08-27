@@ -25,7 +25,7 @@ class GroceryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 100, 
+        height: 100,
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -41,14 +41,27 @@ class GroceryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Image.network(
-                imageUrl,
-                height: 130, // Reduced image height
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 130, // Reduced image height
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                 Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: Colors.red,
+                    size: 24,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8), // Adjusted space
             Padding(
